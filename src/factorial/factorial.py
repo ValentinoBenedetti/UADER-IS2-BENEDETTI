@@ -20,11 +20,30 @@ def factorial(num):
             num -= 1
         return fact 
 
-# Verificar si se pasó un número como argumento
-if len(sys.argv) == 1:  # Si no se pasó ningún número como argumento
-    print("Debe informar un número! Lo solicitaré ahora.")
-    num = int(input("Por favor, ingrese un número: "))  # Solicitar al usuario el número
-else:
-    num = int(sys.argv[1])  # Usar el número pasado como argumento
+# Función para manejar el rango de números
+def calcular_factoriales_en_rango(inicio, fin):
+    if inicio > fin:
+        print("El valor de 'inicio' no puede ser mayor que 'fin'.")
+        return
+    
+    for num in range(inicio, fin + 1):
+        print(f"El factorial de {num} es {factorial(num)}")
 
-print(f"El factorial de {num} es {factorial(num)}")
+# Verificar si se pasó un rango como argumento
+if len(sys.argv) == 1:  # Si no se pasó ningún argumento
+    print("Debe informar un rango (inicio-fin)! Lo solicitaré ahora.")
+    rango = input("Por favor, ingrese el rango de números (ej. 4-8): ")
+    
+    # Separar el rango en dos números
+    try:
+        inicio, fin = map(int, rango.split('-'))
+        calcular_factoriales_en_rango(inicio, fin)
+    except ValueError:
+        print("Formato de rango inválido. Debe ser 'inicio-fin'.")
+else:
+    # Si se pasó un rango como argumento
+    try:
+        inicio, fin = map(int, sys.argv[1].split('-'))
+        calcular_factoriales_en_rango(inicio, fin)
+    except ValueError:
+        print("Formato de rango inválido. Debe ser 'inicio-fin'.")
