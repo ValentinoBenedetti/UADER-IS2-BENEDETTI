@@ -32,18 +32,46 @@ def calcular_factoriales_en_rango(inicio, fin):
 # Verificar si se pasó un rango como argumento
 if len(sys.argv) == 1:  # Si no se pasó ningún argumento
     print("Debe informar un rango (inicio-fin)! Lo solicitaré ahora.")
-    rango = input("Por favor, ingrese el rango de números (ej. 4-8): ")
-    
-    # Separar el rango en dos números
-    try:
-        inicio, fin = map(int, rango.split('-'))
-        calcular_factoriales_en_rango(inicio, fin)
-    except ValueError:
-        print("Formato de rango inválido. Debe ser 'inicio-fin'.")
+    rango = input("Por favor, ingrese el rango de números (ej. -10 o 5-): ")
+
+    if '-' in rango:
+        if rango.startswith('-'):
+            # Si el argumento es -hasta
+            try:
+                fin = int(rango[1:])
+                calcular_factoriales_en_rango(1, fin)
+            except ValueError:
+                print("Formato de rango inválido. Debe ser '-hasta'.")
+        elif rango.endswith('-'):
+            # Si el argumento es desde-
+            try:
+                inicio = int(rango[:-1])
+                calcular_factoriales_en_rango(inicio, 60)
+            except ValueError:
+                print("Formato de rango inválido. Debe ser 'desde-'.")
+        else:
+            print("Formato de rango inválido. Debe ser '-hasta' o 'desde-'.")
+    else:
+        print("Debe usar el formato '-hasta' o 'desde-' para el rango.")
 else:
     # Si se pasó un rango como argumento
-    try:
-        inicio, fin = map(int, sys.argv[1].split('-'))
-        calcular_factoriales_en_rango(inicio, fin)
-    except ValueError:
-        print("Formato de rango inválido. Debe ser 'inicio-fin'.")
+    if '-' in sys.argv[1]:
+        rango = sys.argv[1]
+        if rango.startswith('-'):
+            # Si el argumento es -hasta
+            try:
+                fin = int(rango[1:])
+                calcular_factoriales_en_rango(1, fin)
+            except ValueError:
+                print("Formato de rango inválido. Debe ser '-hasta'.")
+        elif rango.endswith('-'):
+            # Si el argumento es desde-
+            try:
+                inicio = int(rango[:-1])
+                calcular_factoriales_en_rango(inicio, 60)
+            except ValueError:
+                print("Formato de rango inválido. Debe ser 'desde-'.")
+        else:
+            print("Formato de rango inválido. Debe ser '-hasta' o 'desde-'.")
+    else:
+        print("Debe usar el formato '-hasta' o 'desde-' para el rango.")
