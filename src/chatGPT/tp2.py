@@ -1,7 +1,5 @@
 """
-Interfaz para consultar a ChatGPT via API de OpenAI.
-- Soporta historial de comandos con readline.
-- Manejo de errores en tres niveles (input, API, sistema).
+Trabajo Practico 2 - Ing software II
 """
 import os
 from openai import OpenAI, APIError, APIConnectionError, RateLimitError
